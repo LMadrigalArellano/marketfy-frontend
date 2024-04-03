@@ -32,6 +32,7 @@ export const ProductCard = ({ product }: Props) => {
             width={300}
             height={300}
             priority={false}
+            loading="lazy"
             onClick={() => setIsModalOpen(true)}
           />
           <div className="absolute bottom-0 right-0 p-1">
