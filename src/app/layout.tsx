@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { StoreProvider } from "./StoreProvider";
 
-// import { Navbar, Sidebar } from "@/components";
-// import { Providers } from "@/store/Providers";
+import { NavBar, SideBar } from "@/components";
 // import { DataInitializer } from "@/components/data-initializer.tsx/DataInitializer";
 
 export const metadata: Metadata = {
@@ -18,12 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* <Providers>
-          <DataInitializer/>
-          <Navbar />
-          <Sidebar /> */}
+        <StoreProvider>
+          {/* <DataInitializer/>*/}
+          <NavBar />
+          <SideBar />
           {children}
-        {/* </Providers> */}
+        </StoreProvider>
       </body>
     </html>
   );
