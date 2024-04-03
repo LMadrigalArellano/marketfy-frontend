@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import sideMenuReducer from './features/ui/sideMenuSlice';
-// import productsReducer from './products/products-store';
+import productsReducer from './features/products/products-store';
 // import cartReducer from './cart/cart-store';
 // import ordersReducer from './orders/orders.store';
 // import usersReducer from './users/users-store';
@@ -12,7 +12,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 export const store = configureStore({
   reducer: {
     sideMenu: sideMenuReducer,
-    // products: productsReducer,
+    products: productsReducer,
     // cart: cartReducer,
     // orders: ordersReducer,
     // users: usersReducer,

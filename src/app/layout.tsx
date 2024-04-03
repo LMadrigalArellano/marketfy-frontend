@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { StoreProvider } from "./StoreProvider";
+import { StoreProvider, DataInitializer } from "@/components";
 
 import { NavBar, SideBar } from "@/components";
-// import { DataInitializer } from "@/components/data-initializer.tsx/DataInitializer";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -19,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <StoreProvider>
-          {/* <DataInitializer/>*/}
+          <DataInitializer />
           <NavBar />
           <SideBar />
           {children}
