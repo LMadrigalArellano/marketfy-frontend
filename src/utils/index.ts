@@ -1,0 +1,1 @@
+export { getSingleProduct } from './GetSingleProduct';

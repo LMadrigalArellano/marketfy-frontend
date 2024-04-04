@@ -1,6 +1,6 @@
 'use client';
 
-import { ProductsState, SingleProduct } from '@/interfaces';
+import { ProductsState } from '@/interfaces';
 import { useAppSelector } from '@/lib/store';
 import { ProductGrid } from '..';
 

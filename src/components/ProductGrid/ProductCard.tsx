@@ -16,18 +16,16 @@ interface Props {
 export const ProductCard = ({ product }: Props) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [src, setSrc] = useState('');
 
   const pathName = usePathname();
-  const { productId, title, image, price } = product;
 
   return (
     <>
       <div className="rounded-md fade-inm-10 w-80">
         <div className="relative">
           <Image 
-            src={ image }
-            alt={ title }
+            src={ product.image }
+            alt={ product.title }
             className="w-full object-cover max-h-52 min-h-52 cursor-pointer transition-opacity hover:opacity-95"
             width={300}
             height={300}
@@ -43,12 +41,11 @@ export const ProductCard = ({ product }: Props) => {
         <div className="p-4 flex flex-col">
           <Link 
             className="hover:text-blue-600"
-            href='/'
-            // href={`catalog/product/${ productId }`}
+            href={`catalog/product/${product.productId}`}
           >
-            {title}
+            {product.title}
           </Link>
-          <span className="font-bold">${price}</span>
+          <span className="font-bold">${product.price}</span>
           {/* {
             pathName === '/wishlist'
             &&

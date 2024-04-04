@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { ProductCard } from "./ProductCard";
 import { SearchBar } from "..";
@@ -11,13 +11,7 @@ interface Props {
 }
 
 export const ProductGrid = ({ productsState }: Props) => {
-  const [loaded, setLoaded] = useState(false);
   const [searchText, setSearchText] = useState('');
-  console.log("PRODUCT GRID "+productsState.loading);
-
-  useEffect(() => {
-    setLoaded(true);
-  },[]);
 
   if(productsState.loading) return <p>Loading...</p>
   if(productsState.products.length === 0) return <p>No products</p>
