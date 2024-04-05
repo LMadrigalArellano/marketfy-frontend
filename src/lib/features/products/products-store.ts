@@ -5,9 +5,19 @@ const initialState: ProductsState = {
   products: [],
   loading: true,
   error: '',
+  elementsPerPage: 0,
+  totalElements: 0,
+  totalPages: 0,
+
 }
-const fetchProducts = createAsyncThunk('products/fetchProducts', () => {
-  return fetch(`http://localhost:8080/marketfy/api/products`)
+
+interface fetchProps {
+  pageIndex?: number;
+  pageSize?: number;
+}
+
+const fetchProducts = createAsyncThunk('products/fetchProducts', ({pageIndex = 0, pageSize = 9} :fetchProps ) => {
+  return fetch(`http://localhost:8080/marketfy/api/products?pageIndex=${pageIndex}&pageSize=${pageSize}`)
   .then(res => res.json());
 });
 
@@ -49,7 +59,10 @@ const productsSlice = createSlice({
     });
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.loading = false;
-      state.products = action.payload;
+      state.products = action.payload.content;
+      state.elementsPerPage = action.payload.numberOfElements;
+      state.totalElements = action.payload.totalElements;
+      state.totalPages = action.payload.totalPages;
       state.error = '';
     });
     builder.addCase(fetchProducts.rejected, (state, action) => {

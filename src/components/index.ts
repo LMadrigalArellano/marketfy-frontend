@@ -11,6 +11,8 @@ export { AddToCartButton } from './AddToCartButton/AddToCartButton';
 export { QuantitySelector } from './QuantitySelector/QuantitySelector';
 export { AddToCartWithQuantity } from './AddToCartWithQuantity/AddToCartWithQuantity';
 export { SearchBar } from './SearchBar/SearchBar';
+export { Pagination } from './Pagination/Pagination';
+
 export { DataInitializer } from './store/DataInitializer';
 export { StoreProvider } from './store/StoreProvider';
 // export { PrimaryButton } from './primary-button/PrimaryButton';

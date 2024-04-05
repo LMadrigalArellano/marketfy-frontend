@@ -1,1 +1,2 @@
-export { getSingleProduct } from './GetSingleProduct';
+export * from './getSingleProduct';
+export * from './generatePaginationNumbers';

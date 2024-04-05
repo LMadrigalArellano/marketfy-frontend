@@ -42,7 +42,6 @@ const ProductPage = async ({ params }: Props) => {
         sizes='100vw'
         width={0}
         height={0}
-        objectFit='cover'
         style={{ width: '100%', height: 'auto' }}
         />
       </div>
