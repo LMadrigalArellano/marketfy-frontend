@@ -69,7 +69,6 @@ const productsSlice = createSlice({
       state.totalElements = action.payload.totalElements;
       state.totalPages = action.payload.totalPages;
       state.error = '';
-      console.log(action.payload);
     });
     builder.addCase(fetchPaginatedProducts.rejected, (state, action) => {
       state.loading = false;
@@ -94,8 +93,6 @@ const productsSlice = createSlice({
       state.products = [];
       state.error = action.error.message!;
     });
-
-
   }
 });
 
