@@ -21,6 +21,11 @@ const fetchPaginatedProducts = createAsyncThunk('products/fetchPaginatedProducts
   return await res.json();
 });
 
+const fetchProductsByTitle = createAsyncThunk('products/fetchProductsByTitle', async (title:string) => {
+  const res = await fetch(`http://localhost:8080/marketfy/api/products/title/${title}`);
+  return await res.json();
+});
+
 const productsSlice = createSlice({
   name: 'products',
   initialState,
@@ -71,10 +76,30 @@ const productsSlice = createSlice({
       state.products = [];
       state.error = action.error.message!;
     });
+
+    ////////////////////////////////////////////////////////////
+
+    builder.addCase(fetchProductsByTitle.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchProductsByTitle.fulfilled, (state, action) => {
+      state.loading = false;
+      state.products = action.payload;
+      state.error = '';
+      state.totalElements = action.payload.length;
+      state.totalPages = 1;
+    });
+    builder.addCase(fetchProductsByTitle.rejected, (state, action) => {
+      state.loading = false;
+      state.products = [];
+      state.error = action.error.message!;
+    });
+
+
   }
 });
 
-export { fetchPaginatedProducts };
+export { fetchPaginatedProducts, fetchProductsByTitle };
 
 export const { 
   setInitialProducts, 

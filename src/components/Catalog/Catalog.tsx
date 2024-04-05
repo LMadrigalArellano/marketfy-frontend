@@ -2,16 +2,23 @@
 
 import { ProductsState } from '@/interfaces';
 import { useAppSelector } from '@/lib/store';
-import { Pagination, ProductGrid } from '..';
+import { Pagination, ProductGrid, SearchBar } from '..';
+import { useState } from 'react';
 
 export const Catalog = () => {
+  const [searchText, setSearchText] = useState('');
 
   const productsState:ProductsState = useAppSelector(state => state.products);
   
   return (
     <>
-      <ProductGrid productsState={productsState}/>
-      <Pagination totalPages={productsState.totalPages}/>
+      <SearchBar setSearchText={setSearchText}/>
+      <ProductGrid searchText={searchText} productsState={productsState}/>
+      {
+        searchText === '' 
+        ? <Pagination totalPages={productsState.totalPages}/>
+        : <></>
+      }
     </>
   )
 }

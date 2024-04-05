@@ -5,11 +5,11 @@ import { useEffect, useState } from 'react'
 import { useAppDispatch } from '@/lib/store';
 
 export const DataInitializer = () => {
-	const dispatch = useAppDispatch();
+	// const dispatch = useAppDispatch();
 	
-	useEffect(() => {
-		dispatch( fetchPaginatedProducts({pageIndex: 0, pageSize: 9}) );
-  }, []);
+	// useEffect(() => {
+	// 	dispatch( fetchPaginatedProducts({pageIndex: 0, pageSize: 9}) );
+  // }, []);
 
 	return (
 		<></>

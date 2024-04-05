@@ -11,7 +11,7 @@ interface Props {
 export const AddToCartButton = ({ product }: Props) => {
 
   const cartProduct: CartProduct = {
-    product_id: product.product_id,
+    productId: product.productId,
     title: product.title,
     price: product.price,
     quantity: product.quantity,
