@@ -16,9 +16,9 @@ interface fetchProps {
   pageSize?: number;
 }
 
-const fetchProducts = createAsyncThunk('products/fetchProducts', ({pageIndex = 0, pageSize = 9} :fetchProps ) => {
-  return fetch(`http://localhost:8080/marketfy/api/products?pageIndex=${pageIndex}&pageSize=${pageSize}`)
-  .then(res => res.json());
+const fetchPaginatedProducts = createAsyncThunk('products/fetchPaginatedProducts', async ({pageIndex = 0, pageSize = 9} :fetchProps ) => {
+  const res = await fetch(`http://localhost:8080/marketfy/api/products?pageIndex=${pageIndex}&pageSize=${pageSize}`);
+  return await res.json();
 });
 
 const productsSlice = createSlice({
@@ -54,18 +54,19 @@ const productsSlice = createSlice({
 
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchProducts.pending, (state) => {
+    builder.addCase(fetchPaginatedProducts.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(fetchProducts.fulfilled, (state, action) => {
+    builder.addCase(fetchPaginatedProducts.fulfilled, (state, action) => {
       state.loading = false;
       state.products = action.payload.content;
       state.elementsPerPage = action.payload.numberOfElements;
       state.totalElements = action.payload.totalElements;
       state.totalPages = action.payload.totalPages;
       state.error = '';
+      console.log(action.payload);
     });
-    builder.addCase(fetchProducts.rejected, (state, action) => {
+    builder.addCase(fetchPaginatedProducts.rejected, (state, action) => {
       state.loading = false;
       state.products = [];
       state.error = action.error.message!;
@@ -73,7 +74,7 @@ const productsSlice = createSlice({
   }
 });
 
-export { fetchProducts };
+export { fetchPaginatedProducts };
 
 export const { 
   setInitialProducts, 

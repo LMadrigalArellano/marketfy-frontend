@@ -1,6 +1,6 @@
 'use client';
 
-import { fetchProducts } from "@/lib/features/products/products-store";
+import { fetchPaginatedProducts } from "@/lib/features/products/products-store";
 import { useAppDispatch } from "@/lib/store";
 import { generatePaginationNumbers } from "@/utils";
 import { redirect, usePathname, useSearchParams, useRouter } from "next/navigation";
@@ -47,7 +47,7 @@ export const Pagination = ({ totalPages }: Props) => {
     params.set('pageIndex', pageNumber.toString());
     router.push(`${ pathname }?${ params.toString() }`);
 
-    dispatch( fetchProducts({pageIndex: pageNumber - 1 , pageSize: 9}) );
+    dispatch( fetchPaginatedProducts({pageIndex: pageNumber - 1 , pageSize: 9}) );
   }
 
 
