@@ -12,8 +12,8 @@ interface Props {
 export const ProductModal = ({ product, closeModal }: Props) => {
 
   return (
-    <div className="flex mt-5 flex-col items-center text-slate-800 absolute justify-center w-screen">
-      <div className="relative flex flex-col items-center rounded-[20px] w-[700px] mx-auto bg-white bg-clip-border shadow-lg  p-3 z-10">
+    <div className="flex mt-5 flex-col text-slate-800 absolute h-screen">
+      <div className="relative flex flex-col items-center rounded-[20px] w-[700px] mx-auto bg-white bg-clip-border shadow-lg p-3 z-10">
         <div className="mt-2 mb-8 w-full">
           <div className="flex justify-end mr-3">
             <IoClose 
