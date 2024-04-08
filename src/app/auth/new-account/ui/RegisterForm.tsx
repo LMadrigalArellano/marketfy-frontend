@@ -2,58 +2,65 @@
 
 import { useEffect, useState } from 'react';
 import Link from "next/link";
-import { useAppDispatch, useAppSelector } from '@/store';
-import { User } from '@/interfaces';
-import { PrimaryButton } from '@/components';
-import { v4 as uuidv4 } from 'uuid';
-import { addNewUser, setLoggedUser } from '@/store/users/users-store';
+import { useAppDispatch, useAppSelector } from '@/lib/store';
+import { UsersState, NewUser } from '@/interfaces';
+import { addNewUser, fetchUserByEmail, setLoggedUser, validateLogin } from '@/lib/features/users/users-store';
 import { handleInputChange } from '@/utils/handleInputChange';
+import { useRouter } from 'next/navigation';
+
 
 export const RegisterForm = () => {
 
   const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const usersState: UsersState = useAppSelector(state => state.users);
 
   const [loaded, setLoaded] = useState(false);
-  const [inputLogin, setInputLogin] = useState<User>({
-    email: '',
-    password: '',
+  const [newUserData, setNewUserData] = useState<NewUser>({
     firstName: '',
     lastName: '',
-    areasOfInterest: '',
+    email: '',
+    password: '',
     bio: '',
-    role: 'user',
-    id: uuidv4(),
+    areasOfInterest: '',
   });
 
-  const users: User[] = useAppSelector(state => state.users.users);
-
   const handleFormValueChange = (propertyName: string, propertyValue: string) => {
-    handleInputChange(propertyName, propertyValue, inputLogin, setInputLogin);
+    handleInputChange(propertyName, propertyValue, newUserData, setNewUserData);
   }
 
-  const handleSubmitForm = () => {    
-
-    if(users.find(x => x.email === inputLogin.email)){
-      alert('EMAIL ISSUE!: Already registered');
+  const handleSubmitForm = async () => {    
+    const emailAlreadyInUse = (await dispatch(fetchUserByEmail(newUserData.email))).payload;
+    
+    if(emailAlreadyInUse){
+      alert('EMAIL ALREADY REGISTED!');
       return;
     }
-    if(inputLogin.email.length < 5){
+
+    if(newUserData.email.length < 5){
       return alert('EMAIL ISSUE! Please add at least 5 characters');
     }
-    if(inputLogin.password.length < 3){
+    if(newUserData.password.length < 3){
       return alert('PASSWORD ISSUE! Please add at least 3 characters');
     }
-    if(inputLogin.firstName.length < 3){
+    if(newUserData.firstName.length < 3){
       return alert('FIRST NAME ISSUE! Please add at least 3 characters');
     }
-    if(inputLogin.lastName.length < 3){
+    if(newUserData.lastName.length < 3){
       return alert('LAST NAME ISSUE! Please add at least 3 characters');
     }
 
-    dispatch(addNewUser(inputLogin));
-    dispatch(setLoggedUser(inputLogin));
-    window.location.replace('/');
+    await dispatch(addNewUser(newUserData));
 
+    if(loaded){
+      if(usersState.error.length > 0){
+        alert(usersState.error);
+      } else {
+        dispatch(validateLogin({email: newUserData.email, password: newUserData.password}));
+        router.replace('/');
+      }
+    }
   }
 
   useEffect(() => {
@@ -148,7 +155,13 @@ export const RegisterForm = () => {
       >
       </div>
 
-      <PrimaryButton action={() => handleSubmitForm()} text='Register'/>
+      <button 
+        onClick={() => handleSubmitForm()}
+        className={"btn-primary"} 
+        type='button'
+      >
+          Register
+      </button>
 
       <div className="flex items-center my-5">
         <div className="flex-1 border-t border-gray-500"></div>

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useAppDispatch } from '@/lib/store';
 import { loadState } from '@/utils/localStorage';
-import { setInitialUsers } from '@/lib/features/users/users-store';
+import { setLoggedUser } from '@/lib/features/users/users-store';
 
 export const DataInitializer = () => {
 	const dispatch = useAppDispatch();
@@ -11,7 +11,7 @@ export const DataInitializer = () => {
 
 	
 	useEffect(() => {
-		dispatch( setInitialUsers(persistedState.users));
+		dispatch( setLoggedUser(persistedState.users));
   }, []);
 
 	return (

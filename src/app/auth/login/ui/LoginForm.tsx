@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from '@/lib/store';
-import { User, UsersState } from '@/interfaces';
+import { UsersState } from '@/interfaces';
 import { validateLogin } from  '@/lib/features/users/users-store';
 import { useRouter } from 'next/navigation';
 
@@ -57,7 +57,6 @@ export const LoginForm = () => {
         type="password"
         name="password"
         onChange={(event) => handleInputChange('password', event.target.value)}
-
       />
 
       <div

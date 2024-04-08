@@ -1,4 +1,4 @@
-import { User, UsersState } from '@/interfaces';
+import { NewUser, UsersState } from '@/interfaces';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 const initialState: UsersState = {
@@ -6,7 +6,6 @@ const initialState: UsersState = {
   loading: true,
   error: '',
 }
-
 const fetchUserByEmail = createAsyncThunk('users/fetchUserByEmail', async (email:string) => {
   const res = await fetch(`http://localhost:8080/marketfy/api/users/email/${email}`);
   return await res.json();
@@ -28,11 +27,38 @@ const validateLogin = createAsyncThunk('users/validateLogin', async ({email, pas
   return await res.json();
 });
 
+const addNewUser = createAsyncThunk('users/addNewUser', async (newUser: NewUser) => {
+  
+  const res = await fetch(
+    `http://localhost:8080/marketfy/api/users`, 
+    {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      "firstName": newUser.firstName,
+      "lastName": newUser.lastName,
+      "bio": newUser.bio,
+      "email": newUser.email,
+      "password":newUser.password,
+      "areasOfInterest": newUser.areasOfInterest
+    }),
+  });
+
+  return { 
+    user: {email: newUser.email, password: newUser.password},
+    text: await res.text(),
+    status: res.status,
+    statusText: res.statusText
+  };
+});
+
 const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    setInitialUsers(state, action: PayloadAction<UsersState>){
+    setLoggedUser(state, action: PayloadAction<UsersState>){
       if(action.payload.loggedUser !== undefined){
         state.loggedUser = action.payload.loggedUser;
       }
@@ -42,6 +68,8 @@ const usersSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
+
+    //---------------------LOGIN CASES---------------------//
     builder.addCase(validateLogin.pending, (state) => {
       state.loading = true;
     });
@@ -55,13 +83,29 @@ const usersSlice = createSlice({
       state.loading = false;
       state.error = action.error.message! + new Date().getTime().toFixed(2);
     });
+
+    //---------------------NEW USER CASES---------------------//
+    builder.addCase(addNewUser.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(addNewUser.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = '';
+      if((action.payload.status !== 201) || !action.payload.text.includes('CREATED')){
+        state.error = action.payload.text + "\n" + new Date().getTime().toFixed(2);
+      }
+    });
+    builder.addCase(addNewUser.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message! + new Date().getTime().toFixed(2);
+    });
   }
 });
 
-export { validateLogin };
+export { addNewUser, validateLogin, fetchUserByEmail };
 
 export const { 
-  setInitialUsers,
+  setLoggedUser,
   logout
 } = usersSlice.actions
 
