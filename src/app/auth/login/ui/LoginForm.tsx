@@ -5,11 +5,13 @@ import Link from "next/link";
 import { useAppDispatch, useAppSelector } from '@/lib/store';
 import { User, UsersState } from '@/interfaces';
 import { validateLogin } from  '@/lib/features/users/users-store';
+import { useRouter } from 'next/navigation';
 
 export const LoginForm = () => {
 
   const dispatch = useAppDispatch();
   const usersState: UsersState = useAppSelector(state => state.users);
+  const router = useRouter();
 
   const [loaded, setLoaded] = useState(false);
   const [inputLogin, setInputLogin] = useState({email: '', password: ''});
@@ -26,7 +28,7 @@ export const LoginForm = () => {
       if(usersState.error.length > 0){
         alert('Invalid credentials');
       } else {
-        window.location.replace('/');
+        router.replace('/');
       }
     }
   }, [usersState.error, usersState.loggedUser, dispatch]);

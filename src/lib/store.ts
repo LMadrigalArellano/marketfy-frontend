@@ -7,7 +7,7 @@ import productsReducer from './features/products/products-store';
 import usersReducer from './features/users/users-store';
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-// import { saveState } from '@/utils/localStorage';
+import { saveState } from '@/utils/localStorage';
 
 export const store = configureStore({
   reducer: {
@@ -19,14 +19,14 @@ export const store = configureStore({
   },
 });
 
-// store.subscribe(() => {
-//   saveState({
-//     products: store.getState().products,
-//     cart: store.getState().cart,
-//     orders: store.getState().orders,
-//     users: store.getState().users,
-//   });
-// });
+store.subscribe(() => {
+  saveState({
+    // products: store.getState().products,
+    // cart: store.getState().cart,
+    // orders: store.getState().orders,
+    users: store.getState().users,
+  });
+});
 
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

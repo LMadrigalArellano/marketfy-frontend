@@ -2,7 +2,7 @@ import { User, UsersState } from '@/interfaces';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 const initialState: UsersState = {
-  users: [],
+  loggedUser: undefined,
   loading: true,
   error: '',
 }
@@ -32,6 +32,11 @@ const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
+    setInitialUsers(state, action: PayloadAction<UsersState>){
+      if(action.payload.loggedUser !== undefined){
+        state.loggedUser = action.payload.loggedUser;
+      }
+    },
     logout(state){
       state.loggedUser = undefined;
     }
@@ -56,6 +61,7 @@ const usersSlice = createSlice({
 export { validateLogin };
 
 export const { 
+  setInitialUsers,
   logout
 } = usersSlice.actions
 

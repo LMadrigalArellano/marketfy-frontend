@@ -1,15 +1,18 @@
 'use client'
 
-import { fetchPaginatedProducts } from '@/lib/features/products/products-store';
 import { useEffect, useState } from 'react'
 import { useAppDispatch } from '@/lib/store';
+import { loadState } from '@/utils/localStorage';
+import { setInitialUsers } from '@/lib/features/users/users-store';
 
 export const DataInitializer = () => {
-	// const dispatch = useAppDispatch();
+	const dispatch = useAppDispatch();
+	const [persistedState] = useState(loadState());
+
 	
-	// useEffect(() => {
-	// 	dispatch( fetchPaginatedProducts({pageIndex: 0, pageSize: 9}) );
-  // }, []);
+	useEffect(() => {
+		dispatch( setInitialUsers(persistedState.users));
+  }, []);
 
 	return (
 		<></>

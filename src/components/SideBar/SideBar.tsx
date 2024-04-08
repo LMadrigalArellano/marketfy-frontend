@@ -2,20 +2,19 @@
 
 import { useAppDispatch, useAppSelector } from "@/lib/store";
 import { toggleMenu } from "@/lib/features/ui/sideMenuSlice";
-// import { logout } from "@/store/users/users-store";
+import { logout } from "@/lib/features/users/users-store";
 import Link from "next/link";
 import { IoCloseOutline, IoHeartOutline, IoLogInOutline, IoLogOutOutline, IoPersonOutline, IoTicketOutline } from "react-icons/io5";
 
 export const SideBar = () => {
 
   const isMenuOpen = useAppSelector(state => state.sideMenu.isOpen);
-  const loggedUser = undefined;
-  // const loggedUser = useAppSelector(state => state.users.loggedUser);
+  const loggedUser = useAppSelector(state => state.users.loggedUser);
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
     dispatch( toggleMenu() );  
-    // dispatch( logout() );
+    dispatch( logout() );
     window.location.replace('/');
   }
 
