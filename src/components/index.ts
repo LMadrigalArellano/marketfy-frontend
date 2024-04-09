@@ -16,4 +16,4 @@ export { Pagination } from './Pagination/Pagination';
 export { DataInitializer } from './store/DataInitializer';
 export { StoreProvider } from './store/StoreProvider';
 // export { PrimaryButton } from './primary-button/PrimaryButton';
-// export { IsAuth } from './isAuth/IsAuth';
+export { IsAuth } from './IsAuth/IsAuth';

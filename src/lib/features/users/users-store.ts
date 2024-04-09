@@ -1,4 +1,4 @@
-import { NewUser, UsersState } from '@/interfaces';
+import { NewUser, User, UsersState } from '@/interfaces';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 const initialState: UsersState = {
@@ -54,6 +54,43 @@ const addNewUser = createAsyncThunk('users/addNewUser', async (newUser: NewUser)
   };
 });
 
+const updateUser = createAsyncThunk('users/updateUser', async (updatedUser: User) => {
+  
+  const res = await fetch(
+    `http://localhost:8080/marketfy/api/users/${updatedUser.userId}`, 
+    {
+    method: 'PATCH',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      "firstName": updatedUser.firstName,
+      "lastName": updatedUser.lastName,
+      "bio": updatedUser.bio,
+      "email": updatedUser.email,
+      "password":updatedUser.password,
+      "areasOfInterest": updatedUser.areasOfInterest
+    }),
+  });
+
+  console.log('SENDING');
+  console.log(JSON.stringify({
+    "firstName": updatedUser.firstName,
+    "lastName": updatedUser.lastName,
+    "bio": updatedUser.bio,
+    "email": updatedUser.email,
+    "password":updatedUser.password,
+    "areasOfInterest": updatedUser.areasOfInterest
+  }));
+
+  return { 
+    user: {email: updatedUser.email, password: updatedUser.password},
+    text: await res.text(),
+    status: res.status,
+    statusText: res.statusText
+  };
+});
+
 const usersSlice = createSlice({
   name: 'users',
   initialState,
@@ -99,10 +136,26 @@ const usersSlice = createSlice({
       state.loading = false;
       state.error = action.error.message! + new Date().getTime().toFixed(2);
     });
+
+    //---------------------UPDATE USER CASES---------------------//
+    builder.addCase(updateUser.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateUser.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = '';
+      if(!action.payload.text.includes('UPDATED')){
+        state.error = action.payload.text + "\n" + new Date().getTime().toFixed(2);
+      }
+    });
+    builder.addCase(updateUser.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message! + new Date().getTime().toFixed(2);
+    });
   }
 });
 
-export { addNewUser, validateLogin, fetchUserByEmail };
+export { addNewUser, updateUser, validateLogin, fetchUserByEmail };
 
 export const { 
   setLoggedUser,

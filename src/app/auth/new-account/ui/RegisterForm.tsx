@@ -3,11 +3,10 @@
 import { useEffect, useState } from 'react';
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from '@/lib/store';
-import { UsersState, NewUser } from '@/interfaces';
-import { addNewUser, fetchUserByEmail, setLoggedUser, validateLogin } from '@/lib/features/users/users-store';
+import { UsersState, User } from '@/interfaces';
+import { addNewUser, fetchUserByEmail, validateLogin } from '@/lib/features/users/users-store';
 import { handleInputChange } from '@/utils/handleInputChange';
 import { useRouter } from 'next/navigation';
-
 
 export const RegisterForm = () => {
 
@@ -17,7 +16,8 @@ export const RegisterForm = () => {
   const usersState: UsersState = useAppSelector(state => state.users);
 
   const [loaded, setLoaded] = useState(false);
-  const [newUserData, setNewUserData] = useState<NewUser>({
+  const [newUserData, setNewUserData] = useState<User>({
+    userId: '',
     firstName: '',
     lastName: '',
     email: '',

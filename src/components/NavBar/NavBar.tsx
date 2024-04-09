@@ -48,11 +48,10 @@ export const NavBar = () => {
 					(loggedUser) && (
 						<>
 							<Link 
-              href="/"
-              // href={`/user/${ loggedUser.id }`}
+              href={`/user/${ loggedUser.userId }`}
               >
 								<div className="m-2 p-2 rounded-md transition-all hover:bg-gray-100">
-									{/* {loggedUser.firstName} */}
+									{loggedUser.firstName}
 								</div>
 							</Link>
 							<Link href='/cart' className="mx-2 hover:bg-gray-100">
