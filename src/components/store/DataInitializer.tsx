@@ -8,12 +8,11 @@ import { setLoggedUser } from '@/lib/features/users/users-store';
 export const DataInitializer = () => {
 	const dispatch = useAppDispatch();
 	const [persistedState] = useState(loadState());
-
 	
 	useEffect(() => {
-		dispatch( setLoggedUser(persistedState.users));
+		dispatch(setLoggedUser(persistedState.users));
   }, []);
-
+	
 	return (
 		<></>
 	);

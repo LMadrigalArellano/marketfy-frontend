@@ -1,12 +1,12 @@
-import { Catalog, Title } from '@/components';
+import { Catalog, IsAuth, Title } from '@/components';
 import React from 'react';
 
 const CatalogPage = async () => {
   return (
-    <>
+    <IsAuth>
       <Title text={'Product Catalog'}/>
       <Catalog />
-    </>
+    </IsAuth>
   )
 }
 

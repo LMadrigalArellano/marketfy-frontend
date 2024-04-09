@@ -6,11 +6,13 @@ import { useLayoutEffect } from "react";
 
 export const IsAuth = ({children}: { children: React.ReactNode }) => {
 
-  const loggedUser = useAppSelector(state => state.users.loggedUser);
+  const usersState = useAppSelector(state => state.users);
   
   useLayoutEffect(() => {
-    if(loggedUser === undefined){
-      redirect('/auth/login');
+    if(usersState.loading === false){
+      if(usersState.loggedUser === undefined){
+        redirect('/auth/login');
+      }
     }
   },[]);
   

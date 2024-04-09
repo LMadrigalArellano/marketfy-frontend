@@ -73,16 +73,6 @@ const updateUser = createAsyncThunk('users/updateUser', async (updatedUser: User
     }),
   });
 
-  console.log('SENDING');
-  console.log(JSON.stringify({
-    "firstName": updatedUser.firstName,
-    "lastName": updatedUser.lastName,
-    "bio": updatedUser.bio,
-    "email": updatedUser.email,
-    "password":updatedUser.password,
-    "areasOfInterest": updatedUser.areasOfInterest
-  }));
-
   return { 
     user: {email: updatedUser.email, password: updatedUser.password},
     text: await res.text(),

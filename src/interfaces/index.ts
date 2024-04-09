@@ -6,4 +6,5 @@ export * from './orders/order';
 export * from './store/orders-state';
 export * from './users/user';
 export * from './store/users-state';
-export * from './users/NewUser';
+export * from './store/selection-state';
+export * from './users/newUser';

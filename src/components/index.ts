@@ -5,7 +5,7 @@ export { ActiveLink } from './ActiveLink/ActiveLink';
 export { ProductGrid } from './ProductGrid/ProductGrid';
 export { Title } from './Title/Title';
 export { Catalog } from './Catalog/Catalog';
-// export { WishList } from './WishList/WishList';
+export { WishList } from './WishList/WishList';
 export { ToggleFromWishListButton } from './ToggleFromWishListButton/ToggleFromWishListButton'
 export { AddToCartButton } from './AddToCartButton/AddToCartButton';
 export { QuantitySelector } from './QuantitySelector/QuantitySelector';

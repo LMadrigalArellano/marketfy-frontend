@@ -5,6 +5,7 @@ import productsReducer from './features/products/products-store';
 // import cartReducer from './cart/cart-store';
 // import ordersReducer from './orders/orders.store';
 import usersReducer from './features/users/users-store';
+import selectionReducer from './features/selection/selection-store';
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { saveState } from '@/utils/localStorage';
@@ -16,6 +17,7 @@ export const store = configureStore({
     // cart: cartReducer,
     // orders: ordersReducer,
     users: usersReducer,
+    selection: selectionReducer,
   },
 });
 
