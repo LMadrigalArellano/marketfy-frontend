@@ -17,7 +17,7 @@ export const WishList = () => {
     if(usersState.loggedUser){
       dispatch(fetchWishlistProducts(selectionState.products));
     }
-  },[usersState]);
+  },[selectionState.products]);
 
 
   useEffect(() => {

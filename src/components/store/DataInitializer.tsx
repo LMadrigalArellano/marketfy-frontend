@@ -11,7 +11,7 @@ export const DataInitializer = () => {
 	const dispatch = useAppDispatch();
 	const [persistedState] = useState(loadState());
 	const usersState = useAppSelector(state => state.users);
-  const selectionState: SelectionState = useAppSelector(state => state.selection);
+	const selectionState: SelectionState = useAppSelector(state => state.selection);
 	
 	useEffect(() => {
 		dispatch(setLoggedUser(persistedState.users));
@@ -24,7 +24,7 @@ export const DataInitializer = () => {
   },[usersState]);
 
 	useEffect(() => {
-    if(selectionState.loading === false){
+    if(usersState.loggedUser){
       dispatch(fetchWishlistProducts(selectionState.products));
     }
   },[selectionState.products]);

@@ -7,7 +7,6 @@ const initialState: SelectionState = {
   wishlist: [],
   loading: true,
   error: '',
-
 }
 
 const fetchSelectionProducts = createAsyncThunk('user/selection', async (userId: string) => {
@@ -29,6 +28,37 @@ const fetchWishlistProducts = createAsyncThunk('user/wishlist', async (selectedP
   }
   );
   return await res.json();
+});
+
+const toggleFromWishlist = createAsyncThunk('user/toggleFromWishlist', async (record: SelectionRecord) => {
+
+  const isInWishlist = record.storedIn === 'wishlist';
+  console.log('ISINWISHLIST '+ isInWishlist);
+
+  if(isInWishlist){
+    console.log('WILL DELETE THE RECORD');
+    await fetch(`http://localhost:8080/marketfy/api/selection/delete/${record.id}`,
+      {
+        method: 'DELETE'
+      }
+    );
+
+  } else {
+    console.log('WILL STORE THE RECORD');
+    await fetch(`http://localhost:8080/marketfy/api/selection`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...record,
+          storedIn: 'wishlist',
+        }),
+      }
+    );
+  }
+
 });
 
 // const fetchWishlistProducts = createAsyncThunk('user/wishlist', async (selectedProducts:SelectionRecord[]) => {
@@ -118,13 +148,30 @@ const selectionSlice = createSlice({
       state.products = [];
       state.error = action.error.message!;
     });
+
+    ////////////////////////////////////////////////////////////
+
+    builder.addCase(toggleFromWishlist.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(toggleFromWishlist.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = '';
+
+    });
+    builder.addCase(toggleFromWishlist.rejected, (state, action) => {
+      state.loading = false;
+      state.products = [];
+      state.error = action.error.message!;
+    });
   }
 });
 
 export { 
   // fetchCartProducts, 
   fetchSelectionProducts,
-  fetchWishlistProducts 
+  fetchWishlistProducts,
+  toggleFromWishlist
 };
 
 export const { 
