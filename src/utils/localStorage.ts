@@ -4,7 +4,7 @@ import { CartState, OrdersState, ProductsState, UsersState } from "@/interfaces"
 
 interface parsedValues {
   // products: ProductsState,
-  // cart: CartState,
+  cart: CartState,
   // orders: OrdersState,
   users: UsersState,
 }
@@ -13,16 +13,16 @@ const defaultValue: parsedValues = {
   // products: {
   //   products: [],
   // },
-  // cart: {
-  //   cart: [],
-  //   totalItems: 0,
-  //   summaryInformation: {
-  //     productsAmount: 0,
-  //     subTotal: 0,
-  //     taxes: 0,
-  //     total: 0,
-  //   }
-  // },
+  cart: {
+    cart: [],
+    totalItems: 0,
+    summaryInformation: {
+      productsAmount: 0,
+      subTotal: 0,
+      taxes: 0,
+      total: 0,
+    }
+  },
   // orders: {
   //   orders:[]
   // },

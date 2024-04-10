@@ -18,9 +18,8 @@ const navItems = [
 export const NavBar = () => {
 
 	const dispatch = useAppDispatch();
-  const cartItemCount = 0;
 	const loggedUser = useAppSelector(state => state.users.loggedUser);
-	// const cartItemCount:number = useAppSelector(state => state.cart.totalItems);
+	const cartItemCount:number = useAppSelector(state => state.cart.totalItems);
 	const pathName = usePathname();
 
 	return (

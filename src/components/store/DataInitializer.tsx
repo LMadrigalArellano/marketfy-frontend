@@ -6,6 +6,7 @@ import { loadState } from '@/utils/localStorage';
 import { setLoggedUser } from '@/lib/features/users/users-store';
 import { ProductsState, SelectionState, SingleProduct } from '@/interfaces';
 import { fetchSelectionProducts, fetchWishlistProducts, setInitialSelection } from '@/lib/features/selection/selection-store';
+import { calculateTotalItems, setInitialProductsInCart, setSummaryInformation } from '@/lib/features/cart/cart-store';
 
 export const DataInitializer = () => {
 	const dispatch = useAppDispatch();
@@ -14,6 +15,9 @@ export const DataInitializer = () => {
 	const selectionState: SelectionState = useAppSelector(state => state.selection);
 	
 	useEffect(() => {
+		dispatch(setInitialProductsInCart(persistedState.cart));
+		dispatch(calculateTotalItems() );
+		dispatch(setSummaryInformation() );
 		dispatch(setLoggedUser(persistedState.users));
   }, []);
 

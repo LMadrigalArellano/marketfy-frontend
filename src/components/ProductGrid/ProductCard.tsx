@@ -46,11 +46,11 @@ export const ProductCard = ({ product }: Props) => {
             {product.title}
           </Link>
           <span className="font-bold">${product.price}</span>
-          {/* {
+          {
             pathName === '/wishlist'
             &&
             <AddToCartButton product={{...product, quantity: 1}}/>
-          } */}
+          }
         </div>
       </div>    
 

@@ -2,7 +2,7 @@
 
 import { CartProduct, SingleProduct } from "@/interfaces";
 import { useAppDispatch } from "@/lib/store";
-// import { addProductToCart, calculateTotalItems, setSummaryInformation } from "@/lib/store/cart/cart-store";
+import { addProductToCart, calculateTotalItems, setSummaryInformation } from "@/lib/features/cart/cart-store";
 
 interface Props {
   product: CartProduct,
@@ -20,17 +20,17 @@ export const AddToCartButton = ({ product }: Props) => {
 
   const dispatch = useAppDispatch();
 
-  // const handleAddToCart = () => {
-  //   dispatch( addProductToCart(cartProduct) );
-  //   dispatch( calculateTotalItems() );
-  //   dispatch( setSummaryInformation() );
-  // }
+  const handleAddToCart = () => {
+    dispatch( addProductToCart(cartProduct) );
+    dispatch( calculateTotalItems() );
+    dispatch( setSummaryInformation() );
+  }
 
   return (
     <>
       <button 
         className='btn-primary my-5'
-        // onClick={handleAddToCart}
+        onClick={handleAddToCart}
       >
         Add to cart
       </button>

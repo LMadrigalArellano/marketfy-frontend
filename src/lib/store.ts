@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import sideMenuReducer from './features/ui/sideMenuSlice';
 import productsReducer from './features/products/products-store';
-// import cartReducer from './cart/cart-store';
+import cartReducer from './features/cart/cart-store';
 // import ordersReducer from './orders/orders.store';
 import usersReducer from './features/users/users-store';
 import selectionReducer from './features/selection/selection-store';
@@ -14,7 +14,7 @@ export const store = configureStore({
   reducer: {
     sideMenu: sideMenuReducer,
     products: productsReducer,
-    // cart: cartReducer,
+    cart: cartReducer,
     // orders: ordersReducer,
     users: usersReducer,
     selection: selectionReducer,
@@ -24,7 +24,7 @@ export const store = configureStore({
 store.subscribe(() => {
   saveState({
     // products: store.getState().products,
-    // cart: store.getState().cart,
+    cart: store.getState().cart,
     // orders: store.getState().orders,
     users: store.getState().users,
   });
