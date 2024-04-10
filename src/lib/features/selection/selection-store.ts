@@ -1,16 +1,54 @@
-import { ProductsState, SelectionState, SingleProduct } from '@/interfaces';
+import { SelectionRecord, SelectionState, SingleProduct } from '@/interfaces';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState: SelectionState = {
   products: [],
+  cart: [],
+  wishlist: [],
   loading: true,
   error: '',
+
 }
 
-const fetchWishlistProducts = createAsyncThunk('user/wishlist', async (userId: string) => {
+const fetchSelectionProducts = createAsyncThunk('user/selection', async (userId: string) => {
   const res = await fetch(`http://localhost:8080/marketfy/api/users/${userId}/wishlist`);
   return await res.json();
 }); 
+
+const fetchWishlistProducts = createAsyncThunk('user/wishlist', async (selectedProducts:SelectionRecord[]) => {
+  const productIds = selectedProducts.map((product) => product.productId+"");
+  const res = await fetch(`http://localhost:8080/marketfy/api/products/wishlist`,
+  {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      productIds
+    }),
+  }
+  );
+  return await res.json();
+});
+
+// const fetchWishlistProducts = createAsyncThunk('user/wishlist', async (selectedProducts:SelectionRecord[]) => {
+
+//   let newProducts: SingleProduct[] = [];
+  
+//   try{
+//     selectedProducts.map(async (product) => {
+//       const fetchedProduct = await fetch(`http://localhost:8080/marketfy/api/products/${product.productId}`);
+//       const newProduct:SingleProduct = await fetchedProduct.json();
+//       newProducts = ([...newProducts, newProduct]);
+//     });
+  
+//     return newProducts;
+
+//   } catch(e) {
+//     return [];
+//   }
+
+// }); 
 
 // const fetchCartProducts = createAsyncThunk('user/cart', async (userId: number) => {
 //   const res = await fetch(`http://localhost:8080/marketfy/api/users/${userId}/cart`);
@@ -22,10 +60,10 @@ const selectionSlice = createSlice({
   initialState,
   reducers: {
 
-    setInitialSelection(state, action: PayloadAction<ProductsState>){
-      // if(action.payload.products.length > 0){
-      //   state.products = action.payload.products;
-      // }
+    setInitialSelection(state, action: PayloadAction<{wishlistItems:SingleProduct[]}>){
+      if(action.payload){
+        state.wishlist = action.payload.wishlistItems;
+      }
     },
 
     // addProduct(state, action: PayloadAction<SingleProduct>){
@@ -50,16 +88,15 @@ const selectionSlice = createSlice({
 
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchWishlistProducts.pending, (state) => {
+    builder.addCase(fetchSelectionProducts.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(fetchWishlistProducts.fulfilled, (state, action) => {
-      console.log(action.payload);
+    builder.addCase(fetchSelectionProducts.fulfilled, (state, action) => {
       state.loading = false;
       state.products = action.payload;
       state.error = '';
     });
-    builder.addCase(fetchWishlistProducts.rejected, (state, action) => {
+    builder.addCase(fetchSelectionProducts.rejected, (state, action) => {
       state.loading = false;
       state.products = [];
       state.error = action.error.message!;
@@ -67,25 +104,28 @@ const selectionSlice = createSlice({
 
     ////////////////////////////////////////////////////////////
 
-    // builder.addCase(fetchCartProducts.pending, (state) => {
-    //   state.loading = true;
-    // });
-    // builder.addCase(fetchCartProducts.fulfilled, (state, action) => {
-    //   state.loading = false;
-    //   state.products = action.payload;
-    //   state.error = '';
-    // });
-    // builder.addCase(fetchCartProducts.rejected, (state, action) => {
-    //   state.loading = false;
-    //   state.products = [];
-    //   state.error = action.error.message!;
-    // });
+    builder.addCase(fetchWishlistProducts.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchWishlistProducts.fulfilled, (state, action) => {
+      state.loading = false;
+      state.wishlist = action.payload;
+      state.error = '';
+
+    });
+    builder.addCase(fetchWishlistProducts.rejected, (state, action) => {
+      state.loading = false;
+      state.products = [];
+      state.error = action.error.message!;
+    });
   }
 });
 
 export { 
   // fetchCartProducts, 
-  fetchWishlistProducts };
+  fetchSelectionProducts,
+  fetchWishlistProducts 
+};
 
 export const { 
   setInitialSelection, 

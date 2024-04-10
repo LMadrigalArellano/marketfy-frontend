@@ -1,11 +1,14 @@
+import { SingleProduct } from "../products/single-product";
 
 export interface SelectionState {
   products: SelectionRecord[];
+  cart: SingleProduct[],
+  wishlist: SingleProduct[],
   loading: boolean;
   error: String;
 }
 
-interface SelectionRecord {
+export interface SelectionRecord {
   id: number;
   userId: number;
   productId: number;
