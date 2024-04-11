@@ -15,7 +15,7 @@ export default function Home() {
         Default login data:
       </p>
       <p className="flex px-5 py-2">
-        <span className="mr-10">Email: leo@leo.com</span>
+        <span className="mr-10">Email: Leonardo@Madrigal.com</span>
         <span>Password: 123</span>
       </p>
     </>
