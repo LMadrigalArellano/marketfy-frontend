@@ -33,10 +33,8 @@ const fetchWishlistProducts = createAsyncThunk('user/wishlist', async (selectedP
 const toggleFromWishlist = createAsyncThunk('user/toggleFromWishlist', async (record: SelectionRecord) => {
 
   const isInWishlist = record.storedIn === 'wishlist';
-  console.log('ISINWISHLIST '+ isInWishlist);
 
   if(isInWishlist){
-    console.log('WILL DELETE THE RECORD');
     await fetch(`http://localhost:8080/marketfy/api/selection/delete/${record.id}`,
       {
         method: 'DELETE'
@@ -44,7 +42,6 @@ const toggleFromWishlist = createAsyncThunk('user/toggleFromWishlist', async (re
     );
 
   } else {
-    console.log('WILL STORE THE RECORD');
     await fetch(`http://localhost:8080/marketfy/api/selection`,
       {
         method: 'POST',

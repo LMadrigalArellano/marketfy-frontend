@@ -43,11 +43,19 @@ export const OrderSummary = () => {
         <span className='text-2xl mt-5 text-right'>${total.toFixed(2)}</span>
       </div>
       <div className='mt-5 mb-2 w-full'>
-        <Link 
-          className='flex btn-primary justify-center'
-          href='/checkout'>
-          Checkout
-        </Link>
+        {
+          productsAmount > 0 
+          ?
+          <Link 
+          className='flex btn-primary justify-center w-full'
+            href='/checkout'>
+            Checkout
+          </Link>
+          :
+          <button className='flex btn-disabled justify-center w-full'>
+            Checkout
+          </button>
+        }
       </div>
     </div>
   )

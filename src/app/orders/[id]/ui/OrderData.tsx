@@ -17,7 +17,9 @@ const OrderData = ({id}: {id: string}) => {
     productsAmount: 0 
   });
   const [cart, setCart] = useState<CartProduct[]>([]);
+
   const ordersState: OrdersState = useAppSelector(state => state.orders);
+  const loggedUser = useAppSelector(state => state.users.loggedUser);
 
   useEffect(() => {
     if(ordersState.loading === false){
@@ -44,7 +46,7 @@ const OrderData = ({id}: {id: string}) => {
 
       setSummary({ 
         userId: filteredOrderRecords[0].userId,
-        orderDate: filteredOrderRecords[0].orderDate,
+        orderDate: new Date(filteredOrderRecords[0].orderDate).toLocaleDateString('en-US'),
         subTotal, 
         taxes, 
         total, 
@@ -96,8 +98,8 @@ const OrderData = ({id}: {id: string}) => {
         </h2>
 
         <div className='flex justify-between'>
-          <span>USER ID: </span>
-          <span>{ summary.userId }</span>
+          <span>User: </span>
+          <span className='text-right'>{loggedUser!.firstName} { loggedUser!.lastName}</span>
         </div>
 
         <div className='grid grid-cols-2'>

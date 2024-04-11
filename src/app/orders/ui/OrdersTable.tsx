@@ -43,7 +43,6 @@ const OrdersTable = () => {
         <tbody>
           {
             Object.entries(tableElements as IOrderRecord).map((element) =>{
-              console.log(element[0]);
               return (
                 <tr key={element[0]} className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
                 <td colSpan={3} className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">

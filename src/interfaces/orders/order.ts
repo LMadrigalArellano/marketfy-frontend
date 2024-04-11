@@ -3,7 +3,7 @@ import { CartState } from "..";
 export interface IOrderRecord {
   id: number;
   orderId: string;
-  orderDate: string;
+  orderDate: Date;
   userId: number;
   productId: number;
   productPrice: number;
