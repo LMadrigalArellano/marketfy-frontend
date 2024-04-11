@@ -166,9 +166,9 @@ export const UserProfile = () => {
                   <span className='mr-1'>Software</span> 
                     <input
                       type="checkbox"
-                      name="software"
-                      value='software'
-                      defaultChecked={retrievedUser.areasOfInterest.includes('software')}
+                      name="Software"
+                      value='Software'
+                      defaultChecked={retrievedUser.areasOfInterest.includes('Software')}
                       onChange={(event) => handleFormValueChange('areasOfInterest', event.target.value)}
                     />
                   </span>
@@ -176,9 +176,9 @@ export const UserProfile = () => {
                   <span className='mr-1'>Animals</span> 
                     <input
                       type="checkbox"
-                      name="animal"
-                      value='animal'
-                      defaultChecked={retrievedUser.areasOfInterest.includes('animal')}
+                      name="Animals"
+                      value='Animals'
+                      defaultChecked={retrievedUser.areasOfInterest.includes('Animals')}
                       onChange={(event) => handleFormValueChange('areasOfInterest', event.target.value)}
                     />
                   </span>
@@ -186,9 +186,9 @@ export const UserProfile = () => {
                   <span className='mr-1'>Sports</span> 
                     <input
                       type="checkbox"
-                      name="sport"
-                      value='sport'
-                      defaultChecked={retrievedUser.areasOfInterest.includes('sport')}
+                      name="Sport"
+                      value='Sport'
+                      defaultChecked={retrievedUser.areasOfInterest.includes('Sport')}
                       onChange={(event) => handleFormValueChange('areasOfInterest', event.target.value)}
                     />
                   </span>
