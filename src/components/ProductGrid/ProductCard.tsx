@@ -5,9 +5,13 @@ import Image from "next/image";
 import { SingleProduct } from "@/interfaces/products/single-product";
 import { AddToCartButton, ToggleFromWishListButton } from "..";
 import { usePathname } from 'next/navigation';
-import { ProductModal } from "./ProductModal";
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
+import dynamic from 'next/dynamic';
+
+//Client component lazily loaded
+const ProductModal = dynamic(() => import('./ProductModal'));
+
 
 interface Props { 
   product: SingleProduct

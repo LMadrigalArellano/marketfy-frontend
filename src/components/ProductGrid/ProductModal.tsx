@@ -9,7 +9,7 @@ interface Props {
   closeModal: () => void;
 }
 
-export const ProductModal = ({ product, closeModal }: Props) => {
+const ProductModal = ({ product, closeModal }: Props) => {
 
   return (
     <div className="flex mt-5 flex-col text-slate-800 absolute h-screen">
@@ -70,3 +70,6 @@ export const ProductModal = ({ product, closeModal }: Props) => {
     </div>
   )
 }
+
+
+export default ProductModal;
