@@ -3,7 +3,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import sideMenuReducer from './features/ui/sideMenuSlice';
 import productsReducer from './features/products/products-store';
 import cartReducer from './features/cart/cart-store';
-// import ordersReducer from './orders/orders.store';
+import ordersReducer from './features/orders/orders.store';
 import usersReducer from './features/users/users-store';
 import selectionReducer from './features/selection/selection-store';
 
@@ -15,7 +15,7 @@ export const store = configureStore({
     sideMenu: sideMenuReducer,
     products: productsReducer,
     cart: cartReducer,
-    // orders: ordersReducer,
+    orders: ordersReducer,
     users: usersReducer,
     selection: selectionReducer,
   },

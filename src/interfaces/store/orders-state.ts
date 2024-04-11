@@ -1,5 +1,7 @@
-import { SingleOrder } from "../orders/order";
+import { IOrderRecord } from "../orders/order";
 
 export interface OrdersState {
-  orders: SingleOrder[];
+  orderRecords: IOrderRecord[];
+  loading: boolean;
+  error: String;
 }
