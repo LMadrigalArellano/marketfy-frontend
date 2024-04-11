@@ -1,5 +1,6 @@
 'use client';
 
+import { SearchBar } from "@/components";
 import { IOrderRecord, ITableRecord, OrdersState, UsersState } from "@/interfaces";
 import { fetchUserOrderRecords } from "@/lib/features/orders/orders.store";
 // import { SingleOrder } from "@/interfaces";
@@ -8,12 +9,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const OrdersTable = () => {
+  const [searchText, setSearchText] = useState('');
   const [loaded, setLoaded] = useState(false);
   const [tableElements, setTableElements] = useState({});
 
   const ordersState: OrdersState = useAppSelector(state => state.orders);
-
-  // const orders: SingleOrder[] = useAppSelector(state => state.orders.orders).filter((order) => order.userId === loggedUserId);
 
   useEffect(() => {
     if(ordersState.loading === false){
@@ -29,6 +29,7 @@ const OrdersTable = () => {
 
   return (
     <div className="mb-10">
+      <SearchBar setSearchText={setSearchText}/>
       <table  className="min-w-full">
         <thead className="bg-gray-200 border-b">
           <tr>
@@ -42,7 +43,9 @@ const OrdersTable = () => {
         </thead>
         <tbody>
           {
-            Object.entries(tableElements as IOrderRecord).map((element) =>{
+            Object.entries(tableElements as IOrderRecord)
+            .filter((e) => e[0].includes(searchText))
+            .map((element) =>{
               return (
                 <tr key={element[0]} className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
                 <td colSpan={3} className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
