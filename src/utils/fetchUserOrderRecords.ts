@@ -6,7 +6,7 @@ interface Props {
   orderId: number;
 }
 
-export const fetchSingleProduct = async ({userId, orderId}: Props): Promise<SingleProduct> => {
+export const fetchUserOrderRecords = async ({userId, orderId}: Props): Promise<SingleProduct> => {
 
   try {
     const product: SingleProduct = await fetch(`http://localhost:8080/marketfy/api/users/${userId}/orders/${orderId}`)

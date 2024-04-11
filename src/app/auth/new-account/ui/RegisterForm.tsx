@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useAppDispatch, useAppSelector } from '@/lib/store';
 import { UsersState, User } from '@/interfaces';
 import { addNewUser, fetchUserByEmail, validateLogin } from '@/lib/features/users/users-store';
-import { handleInputChange } from '@/utils/handleInputChange';
+import { useInputChangeHandler } from '@/utils/CustomHooks/useInputChangeHandler';
 import { useRouter } from 'next/navigation';
 
 export const RegisterForm = () => {
@@ -27,7 +27,7 @@ export const RegisterForm = () => {
   });
 
   const handleFormValueChange = (propertyName: string, propertyValue: string) => {
-    handleInputChange(propertyName, propertyValue, newUserData, setNewUserData);
+    useInputChangeHandler(propertyName, propertyValue, newUserData, setNewUserData);
   }
 
   const handleSubmitForm = async () => {    

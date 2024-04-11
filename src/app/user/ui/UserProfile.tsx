@@ -3,7 +3,7 @@
 import { User, UsersState } from '@/interfaces';
 import { useAppDispatch, useAppSelector } from '@/lib/store';
 import { setLoggedUser, updateUser, validateLogin } from '@/lib/features/users/users-store';
-import { handleInputChange } from '@/utils/handleInputChange';
+import { useInputChangeHandler } from '@/utils/CustomHooks/useInputChangeHandler';
 import { notFound } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
@@ -32,7 +32,7 @@ export const UserProfile = () => {
   if(!retrievedUser) return notFound();
 
   const handleFormValueChange = (propertyName: string, propertyValue: string) => {
-    handleInputChange(propertyName, propertyValue, updatedUser, setUpdatedUser);
+    useInputChangeHandler(propertyName, propertyValue, updatedUser, setUpdatedUser);
   }
 
   const handleButtonClick = async () => {  

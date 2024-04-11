@@ -1,7 +1,7 @@
 import { User } from "@/interfaces";
 import { Dispatch, SetStateAction } from "react";
 
-const handleInputChange = (propertyName: string, propertyValue: string, object: User, setObject: Dispatch<SetStateAction<User>>) => {
+const useInputChangeHandler = (propertyName: string, propertyValue: string, object: User, setObject: Dispatch<SetStateAction<User>>) => {
 
   if(propertyName === 'areasOfInterest'){
     const areasOfInterestArray = object.areasOfInterest.split(',');
@@ -20,4 +20,4 @@ const handleInputChange = (propertyName: string, propertyValue: string, object: 
   });
 }
 
-export { handleInputChange };
+export { useInputChangeHandler };

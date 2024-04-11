@@ -16,7 +16,7 @@ export const LoginForm = () => {
   const [loaded, setLoaded] = useState(false);
   const [inputLogin, setInputLogin] = useState({email: '', password: ''});
 
-  const handleInputChange = (propertyName: string, propertyValue: string) => {
+  const handleLoginInputChange = (propertyName: string, propertyValue: string) => {
     setInputLogin({
       ...inputLogin,
       [propertyName]: propertyValue
@@ -47,7 +47,7 @@ export const LoginForm = () => {
         className="px-5 py-2 border bg-gray-200 rounded mb-5"
         type="email"
         name="email"
-        onChange={(event) => handleInputChange('email', event.target.value)}
+        onChange={(event) => handleLoginInputChange('email', event.target.value)}
       />
 
       <label htmlFor="password">Password</label>
@@ -56,7 +56,7 @@ export const LoginForm = () => {
         className="px-5 py-2 border bg-gray-200 rounded mb-5"
         type="password"
         name="password"
-        onChange={(event) => handleInputChange('password', event.target.value)}
+        onChange={(event) => handleLoginInputChange('password', event.target.value)}
       />
 
       <div
